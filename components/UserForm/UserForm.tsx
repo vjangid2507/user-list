@@ -89,7 +89,7 @@ const UserForm: React.FC<UserFormProps> = ({ addUserData, lastUserId }) => {
           value={userDetails.phone}
           required
         />
-        <Button type="submit" bgColor="#9191d0">
+        <Button type="submit" bgColor="red">
           Add User
         </Button>
       </Form>
