@@ -1,5 +1,5 @@
-import React, { useState } from "react";
 import { userData } from "@/userDataType";
+import React, { useState } from "react";
 
 interface UserFormProps {
   addUserData: (data: userData) => void;
@@ -30,27 +30,27 @@ const UserForm: React.FC<UserFormProps> = ({ addUserData, lastUserId }) => {
   return (
     <div>
       <form onSubmit={submitHandler}>
-        <label>Name</label>
         <input
           type="text"
+          placeholder="Name"
           onChange={(e) =>
             setUserDetails({ ...userDetails, name: e.target.value })
           }
           value={userDetails.name}
           required
         />
-        <label>Email</label>
         <input
           type="email"
+          placeholder="Email"
           onChange={(e) =>
             setUserDetails({ ...userDetails, email: e.target.value })
           }
           value={userDetails.email}
           required
         />
-        <label>Phone</label>
         <input
           type="text"
+          placeholder="Phone"
           onChange={(e) =>
             setUserDetails({ ...userDetails, phone: e.target.value })
           }

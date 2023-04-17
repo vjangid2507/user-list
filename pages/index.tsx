@@ -1,12 +1,13 @@
 import { useState } from "react";
-import { InferGetStaticPropsType } from "next";
+import { InferGetServerSidePropsType } from "next";
 import UserForm from "@/components/UserForm/UserForm";
 import UserList from "@/components/UserList/UserList";
 import { User, userData } from "@/userDataType";
+import Head from "next/head";
 
 const Home = ({
   userApiData,
-}: InferGetStaticPropsType<typeof getStaticProps>) => {
+}: InferGetServerSidePropsType<typeof getServerSideProps>) => {
   const [userData, setUserData] = useState<User[]>(userApiData);
 
   const getData = (data: userData) => {
@@ -18,6 +19,9 @@ const Home = ({
 
   return (
     <>
+      <Head>
+        <title>Users</title>
+      </Head>
       <UserForm addUserData={getData} lastUserId={lastUserId} />
       <UserList usersList={userData} />
     </>
@@ -25,7 +29,7 @@ const Home = ({
 };
 export default Home;
 
-export async function getStaticProps() {
+export async function getServerSideProps() {
   const response = await fetch("https://jsonplaceholder.typicode.com/users");
   const userApiData: User[] = await response.json();
 

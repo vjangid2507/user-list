@@ -18,6 +18,7 @@ const UserList: React.FC<UserListProps> = ({ usersList }) => {
         type="text"
         value={searchText}
         onChange={(e) => setSearchText(e.target.value)}
+        placeholder="search....."
       />
       <div>
         <div>USER-ID</div>
