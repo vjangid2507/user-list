@@ -32,3 +32,8 @@ export type User = {
 export interface UserListProps {
   usersList: User[];
 }
+
+export interface UserFormProps {
+  addUserData: (data: userData) => void;
+  lastUserId: number;
+}

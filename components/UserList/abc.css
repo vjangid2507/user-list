@@ -1,0 +1,7 @@
+.abc {
+  display: flex;
+  background-color: dimgrey;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}

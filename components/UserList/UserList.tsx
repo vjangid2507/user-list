@@ -1,5 +1,30 @@
 import React, { useState } from "react";
+import styled from "styled-components";
 import { UserListProps } from "@/userDataType";
+
+const UserListHeading = styled.div`
+  display: flex;
+  background-color: gray;
+`;
+const DataItem = styled.div`
+  width: 25%;
+`;
+
+const DataListRow = styled.div`
+  display: flex;
+  background-color: #e2dfdf;
+`;
+
+const SearchInput = styled.input`
+  width: 50%;
+  margin: 10px 0;
+  height: auto;
+  padding: 5px 8px;
+  border-radius: 5px;
+  border: 2px solid gray;
+`;
+
+const headingItems = ["UserID", "Name", "Email", "Phone"];
 
 const UserList: React.FC<UserListProps> = ({ usersList }) => {
   const [searchText, setSearchText] = useState("");
@@ -13,31 +38,28 @@ const UserList: React.FC<UserListProps> = ({ usersList }) => {
     : usersList;
 
   return (
-    <div>
-      <input
+    <>
+      <SearchInput
         type="text"
         value={searchText}
         onChange={(e) => setSearchText(e.target.value)}
         placeholder="search....."
       />
-      <div>
-        <div>USER-ID</div>
-        <div>NAME</div>
-        <div>EMAIL</div>
-        <div>PHONE</div>
-      </div>
-
-      <div>
-        {allUsersList?.map((user) => (
-          <div key={user.id}>
-            <div>{user.id} </div>
-            <div>{user.name}</div>
-            <div>{user.email}</div>
-            <div>{user.phone}</div>
-          </div>
+      <UserListHeading>
+        {headingItems.map((item) => (
+          <DataItem key={item}>{item}</DataItem>
         ))}
-      </div>
-    </div>
+      </UserListHeading>
+
+      {allUsersList?.map((user) => (
+        <DataListRow key={user.id}>
+          <DataItem>{user.id}</DataItem>
+          <DataItem>{user.name}</DataItem>
+          <DataItem>{user.email}</DataItem>
+          <DataItem>{user.phone}</DataItem>
+        </DataListRow>
+      ))}
+    </>
   );
 };
 

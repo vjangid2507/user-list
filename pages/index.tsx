@@ -1,9 +1,10 @@
 import { useState } from "react";
-import { InferGetServerSidePropsType } from "next";
+import { GetServerSideProps, InferGetServerSidePropsType } from "next";
+import Head from "next/head";
 import UserForm from "@/components/UserForm/UserForm";
 import UserList from "@/components/UserList/UserList";
 import { User, userData } from "@/userDataType";
-import Head from "next/head";
+import styles from "../styles/Home.module.css";
 
 const Home = ({
   userApiData,
@@ -22,20 +23,29 @@ const Home = ({
       <Head>
         <title>Users</title>
       </Head>
-      <UserForm addUserData={getData} lastUserId={lastUserId} />
-      <UserList usersList={userData} />
+      <div className={styles.main}>
+        <UserForm addUserData={getData} lastUserId={lastUserId} />
+        <UserList usersList={userData} />
+      </div>
     </>
   );
 };
 export default Home;
 
-export async function getServerSideProps() {
-  const response = await fetch("https://jsonplaceholder.typicode.com/users");
-  const userApiData: User[] = await response.json();
+export const getServerSideProps: GetServerSideProps = async ({ res }) => {
+  try {
+    const response = await fetch("https://jsonplaceholder.typicode.com/users");
+    const userApiData: User[] = await response.json();
 
-  return {
-    props: {
-      userApiData,
-    }, // will be passed to the page component as props
-  };
-}
+    return {
+      props: {
+        userApiData,
+      },
+    };
+  } catch {
+    res.statusCode = 404;
+    return {
+      props: {},
+    };
+  }
+};

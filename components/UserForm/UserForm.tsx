@@ -1,10 +1,42 @@
-import { userData } from "@/userDataType";
 import React, { useState } from "react";
+import styled from "styled-components";
+import { UserFormProps } from "@/userDataType";
 
-interface UserFormProps {
-  addUserData: (data: userData) => void;
-  lastUserId: number;
-}
+const FormContainer = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: center;
+`;
+
+const Form = styled.form`
+  display: flex;
+  flex-direction: column;
+  width: 30%;
+  gap: 10px;
+  margin: 10px 0;
+`;
+
+const Input = styled.input`
+  height: auto;
+  width: auto;
+  padding: 5px 8px;
+  border-radius: 5px;
+  border: 2px solid gray;
+`;
+
+const ButtonGroup = styled.div`
+  display: flex;
+  gap: 10px;
+`;
+
+const Button = styled("button")<{ bgColor?: string }>`
+  background-color: ${(props) => props.bgColor};
+  height: auto;
+  width: 30%;
+  padding: 5px 8px;
+  border-radius: 5px;
+  cursor: pointer;
+`;
 
 const UserForm: React.FC<UserFormProps> = ({ addUserData, lastUserId }) => {
   const [userDetails, setUserDetails] = useState({
@@ -28,9 +60,9 @@ const UserForm: React.FC<UserFormProps> = ({ addUserData, lastUserId }) => {
   };
 
   return (
-    <div>
-      <form onSubmit={submitHandler}>
-        <input
+    <FormContainer>
+      <Form onSubmit={submitHandler}>
+        <Input
           type="text"
           placeholder="Name"
           onChange={(e) =>
@@ -39,7 +71,7 @@ const UserForm: React.FC<UserFormProps> = ({ addUserData, lastUserId }) => {
           value={userDetails.name}
           required
         />
-        <input
+        <Input
           type="email"
           placeholder="Email"
           onChange={(e) =>
@@ -48,7 +80,7 @@ const UserForm: React.FC<UserFormProps> = ({ addUserData, lastUserId }) => {
           value={userDetails.email}
           required
         />
-        <input
+        <Input
           type="text"
           placeholder="Phone"
           onChange={(e) =>
@@ -57,10 +89,11 @@ const UserForm: React.FC<UserFormProps> = ({ addUserData, lastUserId }) => {
           value={userDetails.phone}
           required
         />
-        <button type="submit">Add User</button>
-        <button>Cancel</button>
-      </form>
-    </div>
+        <Button type="submit" bgColor="#9191d0">
+          Add User
+        </Button>
+      </Form>
+    </FormContainer>
   );
 };
 
